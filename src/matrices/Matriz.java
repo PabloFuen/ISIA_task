@@ -47,6 +47,25 @@ public class Matriz {
         } 
         return matrizResultante; 
     } 
+    
+    /**
+     * Calcula la traspuesta de la matriz y devuelve una nueva instancia de Matriz.
+     *
+     * @return Matriz traspuesta.
+     */
+    public Matriz transponer() {
+        int filas = this.getDimension().height;
+        int columnas = this.getDimension().width;
+        Matriz matrizTraspuesta = new Matriz(columnas, filas, false);
+
+        for (int i = 0; i < columnas; i++) {
+            for (int j = 0; j < filas; j++) {
+                matrizTraspuesta.datos[j][i] = this.datos[i][j];
+            }
+        }
+
+        return matrizTraspuesta;
+    }
 
     @Override
     public String toString(){
