@@ -47,6 +47,36 @@ public class Matriz {
         } 
         return matrizResultante; 
     } 
+    
+    /**
+     * Multiplica dos matrices y devuelve el resultado como una nueva instancia de Matriz.
+     *
+     * @param a Matriz a multiplicar.
+     * @param b Matriz a multiplicar.
+     * @return Matriz resultante de la multiplicación.
+     * @throws DimensionesIncompatibles Si las dimensiones no son válidas para la multiplicación.
+     */
+    public static Matriz multiplicarDosMatrices(Matriz a, Matriz b) throws DimensionesIncompatibles {
+        if (a.getDimension().width != b.getDimension().height) {
+            throw new DimensionesIncompatibles("El número de columnas de la primera matriz debe coincidir con el número de filas de la segunda matriz.");
+        }
+
+        int filasA = a.getDimension().height;
+        int columnasA = a.getDimension().width;
+        int columnasB = b.getDimension().width;
+
+        Matriz matrizResultante = new Matriz(filasA, columnasB, false);
+
+        for (int i = 0; i < columnasB; i++) {
+            for (int j = 0; j < filasA; j++) {
+                for (int k = 0; k < columnasA; k++) {
+                    matrizResultante.datos[i][j] += a.datos[k][j] * b.datos[i][k];
+                }
+            }
+        }
+
+    return matrizResultante;
+    }
 
     @Override
     public String toString(){

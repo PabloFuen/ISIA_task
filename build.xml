@@ -9,7 +9,17 @@
 <!-- in the project's Project Properties dialog box.-->
 <project name="Matrices" default="default" basedir=".">
     <description>Builds, tests, and runs the project Matrices.</description>
+    <!-- Importa la configuración predeterminada de NetBeans -->
     <import file="nbproject/build-impl.xml"/>
+    
+    <!-- Configuración personalizada -->
+    <property name="javac.source" value="1.8"/>
+    <property name="javac.target" value="1.8"/>
+    
+    <!-- Ajusta el comportamiento antes de la compilación -->
+    <target name="-pre-compile">
+        <echo message="Usando Java source=${javac.source} y target=${javac.target}"/>
+    </target>
     <!--
 
     There exist several targets which are by default empty and which can be 
