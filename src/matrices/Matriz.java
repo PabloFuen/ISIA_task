@@ -21,15 +21,25 @@ public class Matriz {
         datos = new int[columnas][];
         for(int i=0; i<columnas; i++){
             datos[i] = new int[filas];
-            if (inicializarAleatorio)
+            if (inicializarAleatorio){
                 for(int j=0; j<filas; j++)
                     datos[i][j] = rnd.nextInt(100);
+            }
         }
     }
+    
+    public Matriz(int filas, int columnas, int[][] matriz){
+        datos = new int[columnas][];
+        for(int i=0; i<columnas; i++){
+            datos[i] = new int[filas];
+            datos[i] = matriz[i];
+        }
+    }
+    
     public Matriz(Dimension d, boolean inicializarAleatorio){
         this(d.height, d.width, inicializarAleatorio);
     }
-    
+      
     public Dimension getDimension(){
         return new Dimension(datos.length, datos[0].length);
     }
@@ -58,7 +68,7 @@ public class Matriz {
      */
     public static Matriz multiplicarDosMatrices(Matriz a, Matriz b) throws DimensionesIncompatibles {
         if (a.getDimension().width != b.getDimension().height) {
-            throw new DimensionesIncompatibles("El número de columnas de la primera matriz debe coincidir con el número de filas de la segunda matriz.");
+            throw new DimensionesIncompatibles("Las dimensiones son incompatibles.");
         }
 
         int filasA = a.getDimension().height;
@@ -70,19 +80,20 @@ public class Matriz {
         for (int i = 0; i < columnasB; i++) {
             for (int j = 0; j < filasA; j++) {
                 for (int k = 0; k < columnasA; k++) {
-                    matrizResultante.datos[i][j] += a.datos[k][j] * b.datos[i][k];
+                    matrizResultante.datos[i][j] += a.datos[i][k] * b.datos[k][j];
                 }
             }
         }
 
-    return matrizResultante;
+        return matrizResultante;
+    }
 
     /**
      * Calcula la traspuesta de la matriz y devuelve una nueva instancia de Matriz.
      *
      * @return Matriz traspuesta.
      */
-    public Matriz transponer() {
+    public Matriz trasponer() {
         int filas = this.getDimension().height;
         int columnas = this.getDimension().width;
         Matriz matrizTraspuesta = new Matriz(columnas, filas, false);
@@ -95,6 +106,11 @@ public class Matriz {
 
         return matrizTraspuesta;
     }
+    
+    public int[][] getMatriz(){
+        return datos;
+    }
+
 
     @Override
     public String toString(){
